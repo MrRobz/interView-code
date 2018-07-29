@@ -1,0 +1,33 @@
+<div class="container-fl">
+  <div class='heading'>
+    <a href="/">
+      <h2>interView Code</h2> 
+    </a>
+  </div>
+  <div class='sections'>
+    <div class="editor">
+      <div class='top-buttons'>
+        {{#power-select
+            options=languageList
+            selected=language
+            searchField='name'
+            onchange=(action "changeLanguageMode")
+            triggerClass='prog-language-select'
+            as |language|}}
+          {{language.name}}
+        {{/power-select}}
+        <span class='share-button' {{action 'copyToClipboard'}}>
+          {{copyText}} &nbsp;
+          <i class="fa fa-clipboard" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div id="firepad" tabindex="1"></div>
+      <div class="bottom-buttons">
+        <span class='btn btn-default' {{action 'clear'}}> Clear</span>
+        <span  class='btn btn-primary' {{action 'download'}}> Save</span>
+      </div>
+    </div>
+    <div class="users">
+    </div>
+  </div>
+</div>

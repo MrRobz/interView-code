@@ -1,0 +1,80 @@
+.container-fl {
+  height: 100%;
+  padding: 20px;
+  background-color: #FCFCFC;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  height: auto;
+  padding: 0 10px;
+}
+
+.sections {
+  display: flex;
+  position: relative;
+  height: 100%;
+
+  .editor {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+
+    #firepad {
+      height: fit-content;
+      flex-grow: 1;
+      border: 1px solid #0165FD;
+      border-radius: 14px;
+      border-top-left-radius: 0;
+      padding-right: 10px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+
+      &:focus,
+      &:hover {
+        box-shadow: 1px 3px 10px rgba(98, 253, 1, .17);
+      }
+
+      .powered-by-firepad {
+        display: none;
+      }
+    }
+    .prog-language-select {
+      width: 160px;
+      border-top: 1px solid #0165FD;
+      border-bottom: 0px solid #0165FD;
+      border-right: 1px solid #0165FD;
+      border-left: 1px solid #0165FD;
+    }
+
+    .top-buttons {
+      display: flex;
+      justify-content: space-between;
+
+      .share-button {
+        margin-right: 20px;
+      }
+    }
+
+    .bottom-buttons {
+      margin: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .ember-power-select-trigger {
+      border-radius: 0;
+    }
+
+    .share-button {
+      cursor: pointer;
+    }
+  }
+  .users {
+    padding: 10px;
+    margin-top: 25px;
+    flex-basis: 10%;
+  }
+}

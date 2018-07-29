@@ -1,0 +1,20 @@
+.btn {
+  display: inline-block;
+  padding: 15px 20px;
+  border-radius: 3px;
+  font-size: 15px;
+  box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+  text-decoration: none;
+  background: #fff;
+  color: #000;
+  white-space: nowrap;
+  border: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  color: #fff;
+  background: #00cc47 !important;
+  border-color: #007bff;
+}

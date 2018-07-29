@@ -7,6 +7,10 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('home-page', {
+    path: '/'
+  });
+  this.route('code', { path: '/code/:shared_id' });
 });
 
 export default Router;
