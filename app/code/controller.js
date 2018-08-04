@@ -65,8 +65,8 @@ export default Controller.extend({
     },
 
     download() {
-      let textContent = document.querySelector('.firepad').textContent;
-      window.saveAs(new Blob([textContent], {type: 'text/plain'}), 'myfilename.txt');
+      let textContent = codeMirror.getValue();
+      window.saveAs(new Blob([textContent], {type: 'text/plain'}), 'interview-code.txt');
     },
 
     clear() {
