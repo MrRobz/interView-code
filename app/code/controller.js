@@ -35,6 +35,8 @@ export default Controller.extend({
         autofocus: true,
       });
 
+      CodeMirror.modeURL = "https://codemirror.net/2/mode/%N/%N.js"
+
       var userId = Math.floor(Math.random() * 9999999999).toString();
 
       // Create Firepad (with rich text toolbar and shortcuts enabled).
