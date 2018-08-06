@@ -1,12 +1,11 @@
 import Controller from '@ember/controller';
 import { run } from '@ember/runloop';
 import { get, set } from '@ember/object';
-import FileSaver from 'file-saver';
+import { observer } from '@ember/object';
 
+let { firebase, CodeMirror, Firepad, FirepadUserList } = window;
 
-let { firebase, CodeMirror, Firepad } = window;
-
-let firepadRef, codeMirror, firepad;
+let firepadRef, codeMirror, firepad, userId;
 
 export default Controller.extend({
 
@@ -15,6 +14,7 @@ export default Controller.extend({
   languageList: ['c','java','javascript','c++'],
 
   init() {
+    this._super(...arguments);
     run.schedule('afterRender', this, () => {
       firebase.initializeApp({
           apiKey: 'AIzaSyAw2zRcs7UtPkZb0K8zbepfsQhsRfKLtyU',
@@ -24,46 +24,47 @@ export default Controller.extend({
           storageBucket: "",
           messagingSenderId: "989024778703"
       });
-  
-      // Get Firebase Database reference.
+      userId = Math.floor(Math.random() * 9999999999).toString();
+    });
+  },
+
+  setup: observer('model', function() {
+    run.schedule('afterRender', this, () => {
       firepadRef = firebase.database().ref();
       firepadRef = firepadRef.child(get(this, 'model.shared_id'));
 
-      // Create CodeMirror (with lineWrapping on).
+      // Create CodeMirror.
       codeMirror = CodeMirror(document.getElementById('firepad'), {
         lineNumbers: true,
         autofocus: true,
       });
 
-      CodeMirror.modeURL = "https://codemirror.net/mode/%N/%N.js"
+      set(this, 'language', { name: 'Choose language'});
+      firepadRef.child('language').on('value', (snapshot) => {
+        let choice = snapshot.val();
+        if (choice) {
+          set(this, 'language', choice);
+          codeMirror.setOption("mode", choice.mime);
+          CodeMirror.autoLoadMode(codeMirror,  choice.mode);
+        }
+      });
 
-      var userId = Math.floor(Math.random() * 9999999999).toString();
+      set(this, 'languageList', CodeMirror.modeInfo);
+
+      CodeMirror.modeURL = "https://codemirror.net/mode/%N/%N.js"
 
       // Create Firepad (with rich text toolbar and shortcuts enabled).
       firepad = Firepad.fromCodeMirror(firepadRef, codeMirror, {
         userId: userId,
         defaultText: 'Share the url to start colaborating ...'
       });
-
-      set(this, 'languageList', CodeMirror.modeInfo);
-      
-      var firepadUserList = FirepadUserList.fromDiv(firepadRef.child('users'),
-      document.querySelector('.users'), userId);
-
-
-      firepad.on('ready', function() {
-        if (firepad.isHistoryEmpty()) {
-          // firepad.setText('Check out the user list to the left!');
-        }
-      });
-
+      FirepadUserList.fromDiv(firepadRef.child('users'), document.querySelector('.users'), userId);
     });
-  },
+  }),
+   
   actions: {
     changeLanguageMode(choice) {
-      set(this, 'language', choice);
-      codeMirror.setOption("mode", choice.mime);
-      CodeMirror.autoLoadMode(codeMirror,  choice.mode);
+      firepadRef.child('language').set(choice);
     },
 
     download() {
