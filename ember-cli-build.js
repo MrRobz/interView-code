@@ -4,9 +4,31 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  let app = new EmberApp(defaults, {
+  var app = new EmberApp(defaults, {
     // Add options here
+    sourcemaps: {
+      enabled: true,
+      extensions: ['js'],
+    },
+    inlineContent: {
+      errorTrack: {
+        file: './app/error-track.html',
+        postProcess: function(content) {
+          // if (['development', 'test'].includes(ENV.environment)) {
+          //   return;
+          // }
+          // var sentryURL = ENV.errorTrack.sentryURL;
+          // content = content.replace(/\{\{sentryURL\}\}/g, sentryURL);
+          // content = content.replace(/\{\{environment\}\}/g, ENV.environment);
+          content = content.replace(/\{\{currentRevision\}\}/g, '1.0.0');
+          return content;
+        }
+      }
+    }
   });
+  
+  app.import('node_modules/raven-js/dist/raven.js');
+  app.import('node_modules/raven-js/dist/plugins/ember.js');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

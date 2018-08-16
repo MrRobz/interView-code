@@ -30,11 +30,12 @@
     "ember-cli-htmlbars": "^2.0.1",
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
+    "ember-cli-inline-content": "^0.4.1",
     "ember-cli-qunit": "^4.1.1",
     "ember-cli-sass": "^7.1.7",
     "ember-cli-shims": "^1.2.0",
     "ember-cli-sri": "^2.1.0",
-    "ember-cli-uglify": "^2.0.0",
+    "ember-cli-uglify": "^2.1.0",
     "ember-component-css": "^0.6.4",
     "ember-data": "~3.2.0",
     "ember-export-application-global": "^2.0.0",
@@ -50,5 +51,9 @@
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
+  },
+  "dependencies": {
+    "ember-git-version": "^0.1.2",
+    "raven-js": "^3.26.4"
   }
 }
