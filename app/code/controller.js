@@ -64,16 +64,17 @@ export default Controller.extend({
    
   actions: {
     changeLanguageMode(choice) {
-      hello = get(this, 'language');
+      hello123 = get(this, 'language');
       firepadRef.child('language').set(choice);
     },
 
     download() {
-      let textContent = codeMirror.getValue();
+      let textContent = codeMirror.getValue123();
       window.saveAs(new Blob([textContent], {type: 'text/plain'}), 'interview-code.txt');
     },
 
     clear() {
+      vasdg = asd
       firepad.setText('');
     },
 
