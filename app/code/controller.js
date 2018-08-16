@@ -64,6 +64,7 @@ export default Controller.extend({
    
   actions: {
     changeLanguageMode(choice) {
+      hello = get(this, 'language');
       firepadRef.child('language').set(choice);
     },
 
